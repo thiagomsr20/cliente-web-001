@@ -1,2 +1,3 @@
-# cliente-web-001
-E-commerce de roupas para a loja "Men's Store"
+# Men's store
+
+Projeto e-commerce para a loja do cliente.
