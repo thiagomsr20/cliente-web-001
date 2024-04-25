@@ -6,17 +6,11 @@ Serviços que a API deve possuir:
 obs: não haverá login de usuário.
 obs: Usar cookies, para fazer com q o usuário n logue, mas possa acessar compras antigas ou não precisar inserir dados de cliente ou localização, usar o Permanent cookie
 
-1. get: produtos cadastrados
-2. permanência dos dados do cliente e do seu endereço (via cookies)
-3. post: ordem de compra
+A API deverá poder fazer o seguinte:
 
-endpoints (exemplo):
-
-Filta retorno por categoria
-https://mensstore/produtos/category
-
-Registra ordem de compra e manda por WhatsApp
-https://mensstore/ordemdecompra
+1. Retornar todos os produtos, colocando em prioridade itens que estejam em promoção, e itens novos também.
+2. Retornar itens filtrados com base em: categoria (calça, acessório, camistea, etc...), cor, tamanho, range de preço, pois o cliente pode filtrar busca por itens, ou seja, quando for preenchido o formulário, e o cliente clicar em filtrar, deverá se
+3. Cadastro de novos produtos (requer autenticação e endpoint secreto com acesso ao login de admin para cadastro de novos produtos)
 
 exemplo, ordem de compra:
 {
