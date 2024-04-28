@@ -9,22 +9,36 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{091FA7DF-B71
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mensstore.API", "back\src\mensstore.API\mensstore.API.csproj", "{9695D757-FA58-4BE1-9926-A4FDAA72AF37}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mensstore.Core", "back\src\mensstore.Domain\mensstore.Core.csproj", "{0841AB21-B701-423F-A32A-63150A22CC8D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mensstore.Infrastructure", "back\src\mensstore.Infrastructure\mensstore.Infrastructure.csproj", "{C11D8920-94F1-48B8-9845-D2695115E697}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{9695D757-FA58-4BE1-9926-A4FDAA72AF37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9695D757-FA58-4BE1-9926-A4FDAA72AF37}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9695D757-FA58-4BE1-9926-A4FDAA72AF37}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9695D757-FA58-4BE1-9926-A4FDAA72AF37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0841AB21-B701-423F-A32A-63150A22CC8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0841AB21-B701-423F-A32A-63150A22CC8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0841AB21-B701-423F-A32A-63150A22CC8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0841AB21-B701-423F-A32A-63150A22CC8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C11D8920-94F1-48B8-9845-D2695115E697}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C11D8920-94F1-48B8-9845-D2695115E697}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C11D8920-94F1-48B8-9845-D2695115E697}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C11D8920-94F1-48B8-9845-D2695115E697}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{091FA7DF-B715-4AB6-916D-046A4B790A7A} = {DB59A8AA-0607-4B22-97A4-CE9C4413F368}
 		{9695D757-FA58-4BE1-9926-A4FDAA72AF37} = {091FA7DF-B715-4AB6-916D-046A4B790A7A}
+		{0841AB21-B701-423F-A32A-63150A22CC8D} = {091FA7DF-B715-4AB6-916D-046A4B790A7A}
+		{C11D8920-94F1-48B8-9845-D2695115E697} = {091FA7DF-B715-4AB6-916D-046A4B790A7A}
 	EndGlobalSection
 EndGlobal

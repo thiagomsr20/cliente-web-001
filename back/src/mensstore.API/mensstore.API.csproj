@@ -11,4 +11,13 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Entities/interfaces/" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\mensstore.Domain\mensstore.Core.csproj" />
+    <ProjectReference Include="..\mensstore.Infrastructure\mensstore.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
