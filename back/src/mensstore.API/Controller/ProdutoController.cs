@@ -51,6 +51,16 @@ public class ProdutoController : ControllerBase
             produtoRepo.Update(id, produto);
             return Ok();
         }
-        return BadRequest("Model is not valid"); 
+        return BadRequest("Model is not valid");
+    }
+
+    [HttpDelete("{id}")]
+    public ActionResult Delete([FromServices] IProdutoRepository produtoRepo,
+        int id)
+    {
+        if (produtoRepo.GetById(id) is null) return NotFound();
+
+        produtoRepo.Delete(id);
+        return Ok();
     }
 }
