@@ -81,11 +81,11 @@ public class ProdutoRepository : IProdutoRepository
     }
     public void Update(int id, Produto newproduto)
     {
-        var oldproduto = _produtos.FirstOrDefault(x => x.Value.Id == id).Value;
+        var oldproduto = _produtos.First(x => x.Value.Id == id).Value;
 
         if (oldproduto is not null)
         {
-            oldproduto = newproduto;
+            _produtos[oldproduto.Id] = newproduto;
         }
     }
     public Produto[] GetAll() => _produtos.Values.ToArray();

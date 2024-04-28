@@ -41,12 +41,16 @@ public class ProdutoController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public ActionResult<Produto> Put([FromServices] IProdutoRepository produtoRepo,
+    public ActionResult Put([FromServices] IProdutoRepository produtoRepo,
     int id, Produto produto)
     {
-        produtoRepo.Update(id, produto);
-        if (produto is null) return NotFound();
+        if (ModelState.IsValid)
+        {
+            if (produtoRepo.GetById(id) is null) return NotFound();
 
-        return Ok(produto);
+            produtoRepo.Update(id, produto);
+            return Ok();
+        }
+        return BadRequest("Model is not valid"); 
     }
 }
