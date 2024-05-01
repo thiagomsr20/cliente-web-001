@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Teko:wght@300..700&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Teko", sans-serif;
+}
+
+/* Variáveis */
+:root {
+    --primary-color: #ED4545;
+    --second-color: #012F4B;
+}
+
+header {
+    background-color: var(--second-color);
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.header-container {
+    width: min(95%, 90rem);
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+}
+.header-container1 {
+    width: 35%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.header-container1 h1 {
+    font-size: 1.85rem;
+    color: #fff;
+}
+.header-container1 nav {
+    width: 50%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.header-container1 a {
+    font-size: 18px;
+    transition: ease-in-out 5ms;
+
+    text-decoration: none;
+    color: #fff;
+}
+.header-container1 a:hover {
+    color: var(--primary-color);
+}
+.header-container1 a:active {
+    transform: scale(1.1);
+    transition: ease-in-out 5ms;
+}
+.store {
+    color: var(--primary-color);
+}
+.header-container2 {
+    width: 40%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.promo-label {
+    width: 100%;
+    background-color: var(--primary-color);
+    color: #fff;
+    font-size: 19px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
