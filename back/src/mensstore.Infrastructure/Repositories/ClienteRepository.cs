@@ -1,4 +1,4 @@
-﻿using mensstore.entity;
+﻿using mensstore.Core;
 using mensstore.Interfaces;
 
 namespace mensstore.API;

@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace mensstore.entity;
+namespace mensstore.Core;
 
 public class Cliente
 {

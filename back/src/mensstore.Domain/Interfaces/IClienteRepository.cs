@@ -1,4 +1,4 @@
-﻿using mensstore.entity;
+﻿using mensstore.Core;
 
 namespace mensstore.Interfaces;
 

@@ -1,9 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Reflection.Metadata;
-using System.Runtime.InteropServices;
 using System.Text.Json.Serialization;
 
-namespace mensstore.entity;
+namespace mensstore.Core;
 public class Produto
 {
     [JsonPropertyName("Id")]

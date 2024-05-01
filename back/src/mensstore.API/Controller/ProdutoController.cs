@@ -1,37 +1,43 @@
-﻿using mensstore.entity;
-using mensstore.Interfaces;
+﻿using mensstore.Interfaces;
+using mensstore.Core;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace mensstore.API;
 
 [ApiController]
-[Route("[controller]/v1")]
+[Route("[controller]/v1/produtos")]
 public class ProdutoController : ControllerBase
 {
-    [HttpGet]
-    public ActionResult<Produto[]> Get([FromServices] IProdutoRepository produtoRepo)
+    private readonly IProdutoRepository _produtoRepo;
+    public ProdutoController(IProdutoRepository produtoRepository)
     {
-        var produtos = produtoRepo.GetAll();
+        _produtoRepo = produtoRepository;
+    }
+
+    [HttpGet]
+    public ActionResult<Produto[]> Get()
+    {
+        var produtos = _produtoRepo.GetAll();
         return Ok(produtos);
     }
 
     [HttpGet("{id}")]
-    public ActionResult<Produto> Get([FromServices] IProdutoRepository produtoRepo,
-        int id)
+    public ActionResult<Produto> Get(int id)
     {
-        var produto = produtoRepo.GetById(id);
+        var produto = _produtoRepo.GetById(id);
         if (produto is null) return NotFound();
 
         return Ok(produto);
     }
 
+    [Authorize]
     [HttpPost]
-    public ActionResult<Produto> Post([FromServices] IProdutoRepository produtoRepo,
-        Produto produto)
+    public ActionResult<Produto> Post(Produto produto)
     {
         if (ModelState.IsValid)
         {
-            produtoRepo.Insert(produto);
+            _produtoRepo.Insert(produto);
             return Ok(produto);
         }
         else
@@ -40,27 +46,27 @@ public class ProdutoController : ControllerBase
         }
     }
 
+    [Authorize]
     [HttpPut("{id}")]
-    public ActionResult Put([FromServices] IProdutoRepository produtoRepo,
-    int id, Produto produto)
+    public ActionResult Put(int id, Produto produto)
     {
         if (ModelState.IsValid)
         {
-            if (produtoRepo.GetById(id) is null) return NotFound();
+            if (_produtoRepo.GetById(id) is null) return NotFound();
 
-            produtoRepo.Update(id, produto);
+            _produtoRepo.Update(id, produto);
             return Ok();
         }
         return BadRequest("Model is not valid");
     }
 
+    [Authorize]
     [HttpDelete("{id}")]
-    public ActionResult Delete([FromServices] IProdutoRepository produtoRepo,
-        int id)
+    public ActionResult Delete(int id)
     {
-        if (produtoRepo.GetById(id) is null) return NotFound();
+        if (_produtoRepo.GetById(id) is null) return NotFound();
 
-        produtoRepo.Delete(id);
+        _produtoRepo.Delete(id);
         return Ok();
     }
 }
