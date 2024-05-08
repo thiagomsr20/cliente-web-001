@@ -7,7 +7,7 @@
 .env
 
 #configuration file
-appsettings.json
+back\src\mensstore.API\appsettings.json
 
 # User-specific files
 *.rsuser
