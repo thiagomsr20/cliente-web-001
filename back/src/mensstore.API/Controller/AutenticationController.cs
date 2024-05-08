@@ -1,5 +1,7 @@
 ﻿using mensstore.Core;
+using mensstore.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
+using MyBCrypt = BCrypt.Net.BCrypt;
 
 namespace mensstore.API;
 
@@ -14,26 +16,49 @@ public class AuthController : ControllerBase
         _tokenService = tokenService;
     }
 
-    [HttpPost]
-    public void Register(Usuario usuario)
+    [HttpPost("register")]
+    public ActionResult<Usuario> Register(UsuarioDto usuario)
     {
-        var usuarioRegistrado = _usuarioRepository.GetById(usuario.Id);
+        Usuario novoUsuario = new Usuario();
 
-        if(usuarioRegistrado is not null)
-        {
-            _usuarioRepository.Insert();
-        }
+        if (string.IsNullOrEmpty(usuario.Name) || string.IsNullOrEmpty(usuario.Email) || string.IsNullOrEmpty(usuario.Password))
+            return BadRequest("The name, email and password information cant be empty");
+
+        var usuarioExistente = _usuarioRepository.GetByEmail(usuario.Email);
+        if(usuarioExistente is not null)
+            return BadRequest("Email already exists");
+
+        string hasPasspowrd = MyBCrypt.EnhancedHashPassword(usuario.Password);
+
+        novoUsuario.Name = usuario.Name;
+        novoUsuario.Email = usuario.Email;
+        novoUsuario.PasswordHash = hasPasspowrd;
+
+        _usuarioRepository.Register(novoUsuario);
+
+        return Ok(novoUsuario);
+    }
+
+    [HttpPost("login")]
+    public ActionResult<Usuario> Login(UsuarioDto usuario)
+    {
+        var usuarioExistente = _usuarioRepository.GetByEmail(usuario.Email);
+
+        if(usuarioExistente is null)
+            return NotFound("Email not exist");
+
+    
+
+        if(MyBCrypt.Verify(usuario.Password, usuarioExistente.PasswordHash))
+            return BadRequest("Incorrect password");
+
+
+        return Ok(usuarioExistente);
     }
 
     [HttpGet]
-    public ActionResult<string> GetToken(Usuario usuario)
+    public ActionResult<Usuario> Get()
     {
-        var usuarioCadastrado = _usuarioRepository.GetById(2);
-        if(usuarioCadastrado is not null)
-        {
-           string token = _tokenService.GenerateToken(usuario);
-           return Ok(token);
-        }
-        return Unauthorized();
+        return Ok(_usuarioRepository.GetAll());
     }
 }

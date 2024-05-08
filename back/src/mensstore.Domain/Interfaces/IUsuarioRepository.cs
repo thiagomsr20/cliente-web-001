@@ -2,9 +2,8 @@
 
 public interface IUsuarioRepository
 {
-    Produto? GetById(int id);
-    Produto[] GetAll();
-    void Insert(Produto produto);
-    void Delete(int id);
-    void Update(int id, Produto newproduto);
+    Usuario? GetByEmail(string email);
+    void Register(Usuario usuario);
+    void Delete(string email);
+    List<Usuario> GetAll();
 }

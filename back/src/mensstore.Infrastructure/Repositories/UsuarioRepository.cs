@@ -4,28 +4,21 @@ namespace mensstore.Infrastructure;
 
 public class UsuarioRepository : IUsuarioRepository
 {
-    public void Delete(int id)
+    private static List<Usuario> usuarios = new List<Usuario>();
+    public void Delete(string email)
     {
-        throw new NotImplementedException();
+        var usuario = usuarios.First(x => x.Email == email);
+        if(usuario is not null)
+        {
+            int index = usuarios.FindIndex(x => x.Email == email);
+            usuarios.RemoveAt(index);
+        }
+        return;
     }
 
-    public Produto[] GetAll()
-    {
-        throw new NotImplementedException();
-    }
+    public Usuario? GetByEmail(string email) => usuarios.FirstOrDefault(x => x?.Email == email, null);
 
-    public Produto? GetById(int id)
-    {
-        throw new NotImplementedException();
-    }
+    public void Register(Usuario usuario) => usuarios.Add(usuario);
 
-    public void Insert(Produto produto)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void Update(int id, Produto newproduto)
-    {
-        throw new NotImplementedException();
-    }
+    public List<Usuario> GetAll() => usuarios;
 }
