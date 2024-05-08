@@ -1,7 +1,8 @@
 ﻿using mensstore.Core;
+using mensstore.Core.Interfaces.Repositories;
+using mensstore.Core.Interfaces.Services;
 using mensstore.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
-using MyBCrypt = BCrypt.Net.BCrypt;
 
 namespace mensstore.API;
 
@@ -21,17 +22,17 @@ public class AuthController : ControllerBase
     {
         Usuario novoUsuario = new Usuario();
 
-        if (string.IsNullOrEmpty(usuario.Name) || string.IsNullOrEmpty(usuario.Email) || string.IsNullOrEmpty(usuario.Password))
+        if (string.IsNullOrEmpty(usuario.Name) || string.IsNullOrEmpty(usuario.Name) || string.IsNullOrEmpty(usuario.Password))
             return BadRequest("The name, email and password information cant be empty");
 
-        var usuarioExistente = _usuarioRepository.GetByEmail(usuario.Email);
-        if(usuarioExistente is not null)
-            return BadRequest("Email already exists");
+        var usuarioExists = _usuarioRepository.GetByName(usuario.Name);
 
-        string hasPasspowrd = MyBCrypt.EnhancedHashPassword(usuario.Password);
+        if(usuarioExists is not null)
+            return BadRequest("User already exists");
+
+        string hasPasspowrd = BCrypt.Net.BCrypt.HashPassword(usuario.Password);
 
         novoUsuario.Name = usuario.Name;
-        novoUsuario.Email = usuario.Email;
         novoUsuario.PasswordHash = hasPasspowrd;
 
         _usuarioRepository.Register(novoUsuario);
@@ -42,18 +43,18 @@ public class AuthController : ControllerBase
     [HttpPost("login")]
     public ActionResult<Usuario> Login(UsuarioDto usuario)
     {
-        var usuarioExistente = _usuarioRepository.GetByEmail(usuario.Email);
+        var usuarioExists = _usuarioRepository.GetByName(usuario.Name ?? string.Empty);
 
-        if(usuarioExistente is null)
-            return NotFound("Email not exist");
+        if(usuarioExists is null)
+            return NotFound("User not exist");
 
-    
+        bool verifyPassword = BCrypt.Net.BCrypt.Verify(usuario.Password, usuarioExists.PasswordHash);
 
-        if(MyBCrypt.Verify(usuario.Password, usuarioExistente.PasswordHash))
+        if (!verifyPassword)
             return BadRequest("Incorrect password");
 
-
-        return Ok(usuarioExistente);
+        string token = _tokenService.GenerateToken(usuarioExists);
+        return Ok(token);
     }
 
     [HttpGet]

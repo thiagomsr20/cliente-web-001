@@ -6,9 +6,6 @@
 # dotenv files
 .env
 
-#configuration file
-back\src\mensstore.API\appsettings.json
-
 # User-specific files
 *.rsuser
 *.suo

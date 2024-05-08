@@ -1,7 +1,7 @@
 using mensstore.API;
-using mensstore.Core;
+using mensstore.Core.Interfaces.Repositories;
+using mensstore.Core.Interfaces.Services;
 using mensstore.Infrastructure;
-using mensstore.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
