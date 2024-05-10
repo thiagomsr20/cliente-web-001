@@ -1,4 +1,4 @@
-﻿namespace mensstore.Core.Interfaces.Services;
+﻿namespace mensstore.Core.Interfaces;
 
 public interface ITokenService
 {

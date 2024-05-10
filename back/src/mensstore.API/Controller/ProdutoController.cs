@@ -1,7 +1,7 @@
 ﻿using mensstore.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using mensstore.Core.Interfaces.Repositories;
+using mensstore.Core.Interfaces;
 
 namespace mensstore.API;
 

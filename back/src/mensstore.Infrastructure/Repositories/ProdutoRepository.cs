@@ -1,5 +1,5 @@
 ﻿using mensstore.Core;
-using mensstore.Core.Interfaces.Repositories;
+using mensstore.Core.Interfaces;
 
 namespace mensstore.API;
 public class ProdutoRepository : IProdutoRepository

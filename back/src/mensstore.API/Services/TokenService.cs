@@ -1,5 +1,5 @@
 ﻿using mensstore.Core;
-using mensstore.Core.Interfaces.Services;
+using mensstore.Core.Interfaces;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;

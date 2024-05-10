@@ -1,6 +1,5 @@
 ﻿using mensstore.Core;
-using mensstore.Core.Interfaces.Repositories;
-using mensstore.Core.Interfaces.Services;
+using mensstore.Core.Interfaces;
 using mensstore.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 

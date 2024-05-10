@@ -1,6 +1,4 @@
-﻿using mensstore.Core;
-
-namespace mensstore.Core.Interfaces.Repositories;
+﻿namespace mensstore.Core.Interfaces;
 
 public interface IProdutoRepository
 {
