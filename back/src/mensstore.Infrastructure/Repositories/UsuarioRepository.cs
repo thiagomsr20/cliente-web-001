@@ -1,9 +1,6 @@
 ﻿using mensstore.Core;
 using mensstore.Core.Interfaces;
-using mensstore.Infrastructure;
 using MySql.Data.MySqlClient;
-using Mysqlx.Crud;
-using System.Xml.Linq;
 
 namespace mensstore.Infrastructure;
 
@@ -13,11 +10,12 @@ public class UsuarioRepository : IUsuarioRepository
     {
         bool success = false;
 
-        string query = $"DELETE FROM mensstore.usuario WHERE Name = '{name}'";
+        string query = "DELETE FROM mensstore.usuario WHERE Name = @Name;";
 
         using (MySqlConnection conc = new MySqlConnection(DbCommon.conc))
         {
             MySqlCommand comm = new MySqlCommand(query, conc);
+            comm.Parameters.AddWithValue("@Name", name);
 
             conc.Open();
             int afectedRow = comm.ExecuteNonQuery();
@@ -28,36 +26,36 @@ public class UsuarioRepository : IUsuarioRepository
 
         return success;
     }
-
     public bool Register(Usuario usuario)
     {
         bool success = false;
-
-        string query = $"INSERT INTO mensstore.usuario(Name, PasswordHash) VALUES('{usuario.Name}', '{usuario.PasswordHash}');";
+        string query = "INSERT INTO mensstore.usuario(Name, PasswordHash) VALUES(@Name, @PasswordHash);";
         using (MySqlConnection conc = new MySqlConnection(DbCommon.conc))
         {
             MySqlCommand comm = new MySqlCommand(query, conc);
+            comm.Parameters.AddWithValue("@Name", usuario.Name);
+            comm.Parameters.AddWithValue("@PasswordHash", usuario.PasswordHash);
 
             conc.Open();
-            int afectedRow = comm.ExecuteNonQuery();
+            int affectedRow = comm.ExecuteNonQuery();
 
-            if (afectedRow != 0)
+            if (affectedRow != 0)
                 success = true;
         }
 
         return success;
     }
-
     public bool Update(string name, Usuario newUserData)
     {
         bool success = false;
 
-        string query = $"UPDATE mensstore.usuario SET Name = '{newUserData.Name}', PasswordHash = '{newUserData.PasswordHash}'" +
-                        $" WHERE Name = '{name}';";
+        string query = "UPDATE mensstore.usuario SET Name = @Name, PasswordHash = @PasswordHash WHERE Name = @Name;";
 
         using (MySqlConnection conc = new MySqlConnection(DbCommon.conc))
         {
             MySqlCommand comm = new MySqlCommand(query, conc);
+            comm.Parameters.AddWithValue("@Name", newUserData.Name);
+            comm.Parameters.AddWithValue("@PasswordHash", newUserData.PasswordHash);
 
             conc.Open();
             int afectedRow = comm.ExecuteNonQuery();
@@ -67,29 +65,33 @@ public class UsuarioRepository : IUsuarioRepository
         }
         return success;
     }
-
     public Usuario? GetByName(string name) => GetAll().FirstOrDefault(user => user.Name == name);
-
     public List<Usuario> GetAll()
     {
         List<Usuario> usuarios = new List<Usuario>();
-
-        string query = "SELECT Name, PasswordHash FROM usuario";
-
+        string query = "SELECT * FROM usuario";
         using (MySqlConnection conc = new MySqlConnection(DbCommon.conc))
         {
             MySqlCommand comm = new MySqlCommand(query, conc);
-
-            conc.Open();
-            MySqlDataReader reader = comm.ExecuteReader();
-
-            while (reader.Read())
+            try
             {
-                var user = new Usuario();
-                user.Name = reader[0].ToString() ?? string.Empty;
-                user.PasswordHash = reader[1].ToString() ?? string.Empty;
+                conc.Open();
+                MySqlDataReader reader = comm.ExecuteReader();
 
-                usuarios.Add(user);
+                while (reader.Read())
+                {
+                    var user = new Usuario()
+                    {
+                        Name = reader.GetString("Name"),
+                        PasswordHash = reader.GetString("PasswordHash")
+                    };
+                    usuarios.Add(user);
+                }
+            }
+            catch (MySqlException ex)
+            {
+                // Log the exception details here or handle them accordingly
+                Console.WriteLine("MySQL error: " + ex.Message);
             }
         }
 
