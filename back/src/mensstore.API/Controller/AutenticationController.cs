@@ -47,7 +47,7 @@ public class AuthController : ControllerBase
         if(usuarioExists is null)
             return NotFound("User not exist");
 
-        bool verifyPassword = BCrypt.Net.BCrypt.Verify(usuario.Password, usuarioExists.PasswordHash);
+        bool verifyPassword = BCrypt.Net.BCrypt.Verify(usuario.Password ?? string.Empty, usuarioExists.PasswordHash);
 
         if (!verifyPassword)
             return BadRequest("Incorrect password");
