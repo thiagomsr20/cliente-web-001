@@ -6,7 +6,7 @@ using mensstore.Core.Interfaces;
 namespace mensstore.API;
 
 [ApiController]
-[Route("[controller]/v1/produtos")]
+[Route("/v1/produtos")]
 public class ProdutoController : ControllerBase
 {
     private readonly IProdutoRepository _produtoRepo;
@@ -31,8 +31,7 @@ public class ProdutoController : ControllerBase
         return Ok(produto);
     }
 
-    [Authorize]
-    [HttpPost]
+    [HttpPost, Authorize]
     public ActionResult<Produto> Post(Produto produto)
     {
         if (ModelState.IsValid)
@@ -46,8 +45,7 @@ public class ProdutoController : ControllerBase
         }
     }
 
-    [Authorize]
-    [HttpPut("{id}")]
+    [HttpPut("{id}"), Authorize]
     public ActionResult Put(int id, Produto produto)
     {
         if (ModelState.IsValid)
@@ -60,8 +58,7 @@ public class ProdutoController : ControllerBase
         return BadRequest("Model is not valid");
     }
 
-    [Authorize]
-    [HttpDelete("{id}")]
+    [HttpDelete("{id}"), Authorize]
     public ActionResult Delete(int id)
     {
         if (_produtoRepo.GetById(id) is null) return NotFound();

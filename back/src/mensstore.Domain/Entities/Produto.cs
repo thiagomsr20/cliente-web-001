@@ -41,7 +41,6 @@ public class Produto
 
     [JsonPropertyName("Categoria")]
     [Required]
-    [AllowedValues("Camiseta", "Calção")]
     public string Categoria { get; set; }
 
     [JsonPropertyName("Destaque")]
@@ -52,12 +51,10 @@ public class Produto
 
     [JsonPropertyName("Tamanho")]
     [Required]
-    [AllowedValues("XGG", "GG", "M", "P")]
     public string Tamanho { get; set; }
 
     [JsonPropertyName("Cor")]
     [Required]
-    [AllowedValues("Preto", "Branco", "Vermelho", "Azul", "Amarelo", "Creme", "Vinho")]
     public string Cor { get; set; }
 
     public Produto(int id, string nome, string descricao, bool possuiDesconto,
@@ -81,8 +78,4 @@ public class Produto
         if (PossuiDesconto) AplicaDesconto();
     }
     private double AplicaDesconto() => Preco - (Preco * Desconto / 100);
-    // public bool ProdutoValido()
-    // {
-
-    // }
 }
